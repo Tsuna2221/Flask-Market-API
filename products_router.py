@@ -162,24 +162,6 @@ class ProductsRouter:
 
                     categories.update_one({'cid': request_category["cid"]}, {'$set': {'sub_categories': filtered_categories}})
         
-        # Add category
-        else:
-            categories.insert_one({
-                'category_name': request_category_name,
-                'cid': ''.join(
-                    random.SystemRandom().choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _
-                    in
-                    range(8)),
-                'sub_categories': [
-                    {
-                        'name': request_sub_category_name,
-                        'types': [{
-                            'type_label': request_sub_category_type,
-                            'products': []
-                        }]
-                    }
-                ]
-            })
 
         post_id = products.insert_one({
             'pid': ''.join(
