@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
 import datetime, random, string
-import pprint
+import pprint, re
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +23,7 @@ class ProductsRouter:
             output = []
 
             if q_categories:
-                for query in products.find({'company': q_company, 'category.category_name': q_categories}):
+                for query in products.find({'company': re.compile('^' + q_company + '$', re.IGNORECASE), 'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}):
                     output.append({
                         "pid": query['pid'],
                         "title": query['title'],
@@ -38,7 +38,7 @@ class ProductsRouter:
                         "images": query['images']
                     })
             else:
-                for query in products.find({'company': q_company}):
+                for query in products.find({'company': re.compile('^' + q_company + '$', re.IGNORECASE)}):
                     output.append({
                         "pid": query['pid'],
                         "title": query['title'],
@@ -74,7 +74,7 @@ class ProductsRouter:
         elif q_categories:
             output = []
 
-            for query in products.find({'category.category_name': q_categories}):
+            for query in products.find({'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}):
                 output.append({
                     "pid": query['pid'],
                     "title": query['title'],

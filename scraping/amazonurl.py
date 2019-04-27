@@ -7,10 +7,10 @@ print('Insert URL containing octopus classes: '); url = input()
 
 b.get(url)
 
-elements = b.find_elements_by_class_name("octopus-pc-item-link")
+elements = b.find_elements_by_class_name('s-line-clamp-2')
 try:
     for e in elements:
-        txt.write(e.get_attribute('href') + '\n')
+        txt.write(e.find_element_by_tag_name("a").get_attribute('href') + '\n')
 
     print('Success... Type any key to exit.')
     input()

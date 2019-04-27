@@ -22,13 +22,13 @@ for url in text.readlines():
     for var in range(script_variations):
         if 'product_title' in str(scripts[var]):
             script_string = str(scripts[var]).strip()
-            pattern = re.compile(r"[a-z_]+[:]+[\[']+[\w\s\d\-\.;#&]+[']+[\]]")
+            pattern = re.compile(r"[a-z_]+[:]+[\[']+[\w\s\d\-\.\"\'\/,';#&]+[']+[\]]")
 
             for item in pattern.findall(script_string):
                 fetch_array = ['product_category_name', 'product_subcategory_name', 'product_title', 'product_manufacture', 'product_sale_price']
                 for fetch in fetch_array: 
                     if fetch in item:
-                        fetch_pattern = re.compile(r"'+[\w\s\d\-\.;#&]+'")
+                        fetch_pattern = re.compile(r"'+[\w\s\d\-\.\"\'\/,;#&]+'")
                         result.append(fetch_pattern.search(item).group().replace("'", ''))
 
             #Input Category Info
@@ -46,7 +46,7 @@ for url in text.readlines():
                     for p in page.find("div", {"class":"itmDesc"}).findAll('p'):
                         desc_string += p.text.strip() + '\n'
                 except:
-                    print('Could not find a <p> description')
+                    print('Could not find a <p> description. Insert a Description: '); desc_string = input()
 
                 return desc_string
 
