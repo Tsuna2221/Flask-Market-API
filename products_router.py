@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
 import datetime, random, string
-import pprint, re
+import pprint, re, math
 
 app = Flask(__name__)
 CORS(app)
@@ -14,16 +14,51 @@ mongo = PyMongo(app)
 class ProductsRouter:
     @staticmethod
     def get():
+        output = []
         products = mongo.db.products
         q_company = request.args.get('company', None)
         q_pid = request.args.get('id', None)
         q_categories = request.args.get('category', None)
+        q_subcategory = request.args.get('sub', None)
+        q_type = request.args.get('type', None)
+        q_limit = int(request.args.get('limit', 20))
+        q_offset = int(request.args.get('offset', 0))
+        count = 0
+
+        if q_limit < 50:
+            q_limit = q_limit
+        else:
+            q_limit = 50
+
+        def last_id(start):
+            try: 
+                return start[q_offset]['_id']
+            except:
+                return 0
+
+        def follow_query(c, limit, offset):
+            if(c == "sub"):
+                if(int(offset) - int(limit) < 0):
+                    return "0"
+                else:
+                    return str(int(offset) - int(limit))
+
+            if(c == "add"):
+                if(int(offset) + int(limit) > count):
+                    return str(count - 1)
+                else:
+                    return str(int(offset) + int(limit))
+                
 
         if q_company:
-            output = []
-
             if q_categories:
-                for query in products.find({'company': re.compile('^' + q_company + '$', re.IGNORECASE), 'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}):
+                params = {'company': re.compile('^' + q_company + '$', re.IGNORECASE), 'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}
+                starting_id = products.find(params).sort("_id", pymongo.ASCENDING)
+                count = starting_id.count()
+                great_id = {"_id": {'$gte': last_id(starting_id)}}
+                params.update(great_id)
+
+                for query in products.find(params).sort("_id", pymongo.ASCENDING).limit(q_limit):
                     output.append({
                         "pid": query['pid'],
                         "title": query['title'],
@@ -37,8 +72,15 @@ class ProductsRouter:
                         "category": query['category'],
                         "images": query['images']
                     })
+
             else:
-                for query in products.find({'company': re.compile('^' + q_company + '$', re.IGNORECASE)}):
+                params = {'company': re.compile('^' + q_company + '$', re.IGNORECASE)}
+                starting_id = products.find(params).sort("_id", pymongo.ASCENDING)
+                count = starting_id.count()
+                great_id = {"_id": {'$gte': last_id(starting_id)}}
+                params.update(great_id)
+
+                for query in products.find(params).limit(q_limit):
                     output.append({
                         "pid": query['pid'],
                         "title": query['title'],
@@ -54,63 +96,124 @@ class ProductsRouter:
                     })
 
         elif q_pid:
-            output = []
-
             for query in products.find({'pid': q_pid}):
                 output.append({
-                    "pid": query['pid'],
-                    "title": query['title'],
-                    "company": query['company'],
-                    "price": query['price'],
-                    "price_percentage": query['price_percentage'],
-                    "created_at": query['created_at'],
-                    "quantity": query['quantity'],
-                    "num_of_shares": query['num_of_shares'],
-                    "about": query['about'],
-                    "category": query['category'],
-                    "images": query['images']
-                })
+                        "pid": query['pid'],
+                        "title": query['title'],
+                        "company": query['company'],
+                        "price": query['price'],
+                        "price_percentage": query['price_percentage'],
+                        "created_at": query['created_at'],
+                        "quantity": query['quantity'],
+                        "num_of_shares": query['num_of_shares'],
+                        "about": query['about'],
+                        "category": query['category'],
+                        "images": query['images']
+                    })
 
         elif q_categories:
-            output = []
+            if q_subcategory:
+                if q_type:
+                    params = {
+                        'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                        'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE), 
+                        'category.sub_category.type': re.compile('^' + q_type + '$', re.IGNORECASE)
+                    }
+                    starting_id = products.find(params).sort("_id", pymongo.ASCENDING)
+                    count = starting_id.count()
+                    great_id = {"_id": {'$gte': last_id(starting_id)}}
+                    params.update(great_id)
+                    
+                    for query in products.find(params).limit(q_limit):
+                        output.append({
+                        "pid": query['pid'],
+                        "title": query['title'],
+                        "company": query['company'],
+                        "price": query['price'],
+                        "price_percentage": query['price_percentage'],
+                        "created_at": query['created_at'],
+                        "quantity": query['quantity'],
+                        "num_of_shares": query['num_of_shares'],
+                        "about": query['about'],
+                        "category": query['category'],
+                        "images": query['images']
+                    })
 
-            for query in products.find({'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}):
-                output.append({
-                    "pid": query['pid'],
-                    "title": query['title'],
-                    "company": query['company'],
-                    "price": query['price'],
-                    "price_percentage": query['price_percentage'],
-                    "created_at": query['created_at'],
-                    "quantity": query['quantity'],
-                    "num_of_shares": query['num_of_shares'],
-                    "about": query['about'],
-                    "category": query['category'],
-                    "images": query['images']
-                })
+                else:
+                    params = {
+                        'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                        'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE)
+                    }
+                    starting_id = products.find(params).sort("_id", pymongo.ASCENDING)
+                    count = starting_id.count()
+                    great_id = {"_id": {'$gte': last_id(starting_id)}}
+                    params.update(great_id)
+
+                    for query in products.find(params).limit(q_limit):
+                        output.append({
+                        "pid": query['pid'],
+                        "title": query['title'],
+                        "company": query['company'],
+                        "price": query['price'],
+                        "price_percentage": query['price_percentage'],
+                        "created_at": query['created_at'],
+                        "quantity": query['quantity'],
+                        "num_of_shares": query['num_of_shares'],
+                        "about": query['about'],
+                        "category": query['category'],
+                        "images": query['images']
+                    })
+
+            else:
+                params = {'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}
+                starting_id = products.find(params).sort("_id", pymongo.ASCENDING)
+                count = starting_id.count()
+                great_id = {"_id": {'$gte': last_id(starting_id)}}
+                params.update(great_id)
+
+                for query in products.find(params).limit(q_limit):
+                    output.append({
+                        "pid": query['pid'],
+                        "title": query['title'],
+                        "company": query['company'],
+                        "price": query['price'],
+                        "price_percentage": query['price_percentage'],
+                        "created_at": query['created_at'],
+                        "quantity": query['quantity'],
+                        "num_of_shares": query['num_of_shares'],
+                        "about": query['about'],
+                        "category": query['category'],
+                        "images": query['images']
+                    })
 
         else:
-            output = []
+            starting_id = products.find().sort("_id", pymongo.ASCENDING)
+            count = starting_id.count()
+            great_id = {"_id": {'$gte': last_id(starting_id)}}
 
-            for query in products.find():
+            for query in products.find(great_id).limit(q_limit):
                 output.append({
-                    "pid": query['pid'],
-                    "title": query['title'],
-                    "company": query['company'],
-                    "price": query['price'],
-                    "price_percentage": query['price_percentage'],
-                    "created_at": query['created_at'],
-                    "quantity": query['quantity'],
-                    "num_of_shares": query['num_of_shares'],
-                    "about": query['about'],
-                    "category": query['category'],
-                    "images": query['images']
-                })
+                        "pid": query['pid'],
+                        "title": query['title'],
+                        "company": query['company'],
+                        "price": query['price'],
+                        "price_percentage": query['price_percentage'],
+                        "created_at": query['created_at'],
+                        "quantity": query['quantity'],
+                        "num_of_shares": query['num_of_shares'],
+                        "about": query['about'],
+                        "category": query['category'],
+                        "images": query['images']
+                    })
 
         return jsonify({
             "data": {
-                "num_of_products": len(output),
-                "products": output
+                "query_next": "?limit=" + str(q_limit) + "&offset=" + follow_query('add', q_limit, q_offset),
+                "query_prev": "?limit=" + str(q_limit) + "&offset=" + follow_query('sub', q_limit, q_offset), 
+                "products": output,
+                "total_length": count,
+                "total_pages": math.ceil(count / q_limit),
+                "total_query": len(output)
             }
         })
 
@@ -121,7 +224,6 @@ class ProductsRouter:
 
         request_category = categories.find_one({'category_name': request.json['category']['category_name']})
 
-        request_category_name = request.json['category']['category_name']
         request_sub_category_name = request.json['category']['sub_category']['name']
         request_sub_category_type = request.json['category']['sub_category']['type']
 
