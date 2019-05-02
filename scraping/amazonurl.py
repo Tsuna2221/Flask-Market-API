@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 b = webdriver.Chrome('C:\\Users\\tsuna\\Google Drive\\DEV\\chromedriver')
-txt = open('amazon.txt', 'a')
+txt = open('amazon.txt', 'w')
 
 print('Insert URL containing octopus classes: '); url = input()
 

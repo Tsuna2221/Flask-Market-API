@@ -22,17 +22,15 @@ class CategoriesRouter:
         output = []
         category_list = []
         total_products = []
+        product_list = []
 
         if q_categories:
             for query in categories.find({"category_name": re.compile('^' + q_categories + '$', re.IGNORECASE)}):
-                product_list = []
-
                 for item in query['sub_categories']:
                     for type in item['types']:
                         for product in products.find({'category.sub_category.type': type['type_label'], 'category.sub_category.name': item['name']}):
                             total_products.append(product['pid'])
                             product_list.append(product['pid'])
-
                             type['products'].append({
                                 "pid": product['pid'],
                                 "title": product['title'],
@@ -56,8 +54,6 @@ class CategoriesRouter:
 
         elif q_id:
             for query in categories.find({"cid": q_id}):
-                product_list = []
-
                 for item in query['sub_categories']:
                     for type in item['types']:
                         for product in products.find({'category.sub_category.type': type['type_label'], 'category.sub_category.name': item['name']}):
@@ -86,7 +82,6 @@ class CategoriesRouter:
                 }
         else:
             for query in categories.find():
-                product_list = []
                 category_list.append(query['category_name'])
 
                 for item in query['sub_categories']:

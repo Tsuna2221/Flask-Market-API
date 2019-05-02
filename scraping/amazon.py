@@ -64,31 +64,32 @@ for url in text.readlines():
     #Input Category Info
     print(title + " - " + company())
     print('Insert Category: '); category = input()
-    print('Insert Sub-Category: '); sub = input()
-    print('Insert Type Category: '); type_cat = input()
+    if category != '!pass':
+        print('Insert Sub-Category: '); sub = input()
+        print('Insert Type Category: '); type_cat = input()
 
-    obj = {
-        'title': title,
-        'company': company(),
-        'price': price(),
-        'price_percentage': 0,
-        'quantity': 100,
-        'num_of_shares': 0,
-        'images': images,
-        'about': {
-            'description': description(),
-            'release_date': moment.now().format("D-M-YYYY"),
-            'rating': rating()
-        },
-        'category': {
-            'category_name': category,
-            'sub_category': {
-                'name': sub,
-                'type': type_cat
+        obj = {
+            'title': title,
+            'company': company(),
+            'price': price(),
+            'price_percentage': 0,
+            'quantity': 100,
+            'num_of_shares': 0,
+            'images': images,
+            'about': {
+                'description': description(),
+                'release_date': moment.now().format("D-M-YYYY"),
+                'rating': rating()
+            },
+            'category': {
+                'category_name': category,
+                'sub_category': {
+                    'name': sub,
+                    'type': type_cat
+                }
             }
         }
-    }
 
-    response = requests.post(post_url, json=obj)
+        response = requests.post(post_url, json=obj)
 
-    print(response.text)
+        print(response.text)
