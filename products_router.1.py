@@ -16,85 +16,111 @@ class ProductsRouter:
     @staticmethod
     def get():
         products = mongo.db.products
+        q_company = request.args.get('company', None)
+        q_pid = request.args.get('id', None)
+        q_categories = request.args.get('category', None)
+        q_subcategory = request.args.get('sub', None)
+        q_type = request.args.get('type', None)
         q_limit = int(request.args.get('limit', 20))
         q_offset = int(request.args.get('offset', 0))
-        valid_parameters = {}
-
-        def getInt(stat):
-            if request.args.get(stat, 'None') == 'None':
-                return 'None'
-            return int(request.args.get(stat, 'None'))
-
-        query_list = [
-            {
-                'key': 'company',
-                'value': re.compile('^' + request.args.get('company', 'None') + '$', re.IGNORECASE)
-            },
-            {
-                'key': 'pid',
-                'value': request.args.get('id', 'None')
-            },
-            {
-                'key': 'category.category_name',
-                'value': re.compile('^' + request.args.get('category', 'None') + '$', re.IGNORECASE)
-            },
-            {
-                'key': 'category.sub_category.name',
-                'value': re.compile('^' + request.args.get('sub', 'None') + '$', re.IGNORECASE)
-            },
-            {
-                'key': 'category.sub_category.type',
-                'value': re.compile('^' + request.args.get('type', 'None') + '$', re.IGNORECASE)
-            },
-            {
-                'key': 'price',
-                'value': {'$gte': getInt('minprice')}
-            },
-            {
-                'key': 'price',
-                'value': {'$lte': getInt('maxprice')}
-            },
-            {
-                'key': 'about.rating',
-                'value': {'$gte': getInt('rating')}
-            },
-        ]
-
-        for item in query_list:
-            if 'None' not in str(item['value']):
-                valid_parameters.update({item['key']: item['value']})
+        count = 0
+        company_list = []
+        sub_list = []
+        type_list = []
 
         if q_limit < 50:
             q_limit = q_limit
         else:
             q_limit = 50
 
-        output = ProductOutput(valid_parameters).setOutput()
+        def last_id(start):
+            try: 
+                return start[q_offset]['_id']
+            except:
+                return 0
 
-        def follow_query(c):
+        def follow_query(c, limit, offset):
             if(c == "sub"):
-                if(int(q_offset) - int(q_limit) < 0):
+                if(int(offset) - int(limit) < 0):
                     return "0"
                 else:
-                    return str(int(q_offset) - int(q_limit))
+                    return str(int(offset) - int(limit))
 
             if(c == "add"):
-                if(int(q_offset) + int(q_limit) > output['count']):
-                    return str(output['count'] - 1)
+                if(int(offset) + int(limit) > count):
+                    return str(count - 1)
                 else:
-                    return str(int(q_offset) + int(q_limit))
+                    return str(int(offset) + int(limit))
+                
 
-        return jsonify({"data": {
-            "query_next": "?limit=" + str(q_limit) + "&offset=" + follow_query('add'),
-            "query_prev": "?limit=" + str(q_limit) + "&offset=" + follow_query('sub'), 
-            "products": output['output'],
-            "total_length": output['count'],
-            "total_pages": math.ceil(output['count'] / q_limit),
-            "total_query": len(output['output']),
-            "list_companies": output['company_list'],
-            "list_subs": output['sub_list'],
-            "list_types": output['type_list']
-        }})
+        if q_company:
+            if q_categories:
+                if q_subcategory:
+                    if q_type:
+                        params = {
+                            'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                            'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE),
+                            'company': re.compile('^' + q_company + '$', re.IGNORECASE),
+                            'category.sub_category.type': re.compile('^' + q_type + '$', re.IGNORECASE)
+                        }
+                        output = ProductOutput(params).setOutput()
+                    else:
+                        params = {
+                            'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                            'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE),
+                            'company': re.compile('^' + q_company + '$', re.IGNORECASE)
+                        }
+                        output = ProductOutput(params).setOutput()
+
+                else:
+                    params = {'company': re.compile('^' + q_company + '$', re.IGNORECASE), 'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}
+                    output = ProductOutput(params).setOutput()
+
+            else:
+                params = {'company': re.compile('^' + q_company + '$', re.IGNORECASE)}
+                output = ProductOutput(params).setOutput()
+
+        elif q_pid:
+            params = {'pid': q_pid}
+            output = ProductOutput(params).setOutput()
+
+        elif q_categories:
+            if q_subcategory:
+                if q_type:
+                    params = {
+                        'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                        'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE), 
+                        'category.sub_category.type': re.compile('^' + q_type + '$', re.IGNORECASE)
+                    }
+                    output = ProductOutput(params).setOutput()
+
+                else:
+                    params = {
+                        'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE), 
+                        'category.sub_category.name': re.compile('^' + q_subcategory + '$', re.IGNORECASE),
+                    }
+                    output = ProductOutput(params).setOutput()
+
+            else:
+                params = {'category.category_name': re.compile('^' + q_categories + '$', re.IGNORECASE)}
+                output = ProductOutput(params).setOutput()
+
+        else:
+            output = ProductOutput({}).setOutput()
+
+        return jsonify({
+            "data": {
+                "query_next": "?limit=" + str(q_limit) + "&offset=" + follow_query('add', q_limit, q_offset),
+                "query_prev": "?limit=" + str(q_limit) + "&offset=" + follow_query('sub', q_limit, q_offset), 
+                "products": output['output'],
+                "total_length": output['count'],
+                "total_pages": math.ceil(output['count'] / q_limit),
+                "total_query": len(output['output']),
+                "list_companies": output['company_list'],
+                "list_subs": output['sub_list'],
+                "list_types": output['type_list']
+            }
+        })
 
     @staticmethod
     def post():
@@ -176,7 +202,7 @@ class ProductsRouter:
             'pid': created_product['pid']
         }
 
-        return jsonify({output})
+        return jsonify({"data": output})
 
     @staticmethod
     def delete(pid):
