@@ -82,8 +82,12 @@ React Shop back-end made with Flask-RESTful
 | sub      | Return all products from specified subcategory              | string  | "Nintendo Switch" |
 | type     | Return all products from specified product type             | string  | "Games"           |
 | company  | Return all products from specified company/manufacturer     | string  | "Nintendo"        |
+| minprice | Return products at a minimum price point                    | integer | 2000              |
+| maxprice | Return products at a maximum price point                    | integer | 60000             |
+| rating   | Return products with rating above specified value           | integer | 3                 |
 | limit    | Return the maximum number of products (default 20 , max 50) | integer | 50                |
 | offset   | Return products after specified length                      | integer | 20                |
+
 
 /products?category=video%20games&sub=nintendo%20switch
 
