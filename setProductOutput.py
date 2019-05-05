@@ -1,10 +1,11 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, pymongo
+from keys import db
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/flask_market"
+app.config["MONGO_URI"] = db
 mongo = PyMongo(app)
 
 class ProductOutput:

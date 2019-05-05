@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
+from keys import db
 from setProductOutput import ProductOutput
 import datetime, random, string
 import pprint, re, math
@@ -9,7 +10,7 @@ import pprint, re, math
 app = Flask(__name__)
 CORS(app)
 pp = pprint.PrettyPrinter(indent=4)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/flask_market"
+app.config["MONGO_URI"] = db
 mongo = PyMongo(app)
 
 class ProductsRouter:
