@@ -3,6 +3,7 @@ React Shop back-end made with Flask-RESTful
 https://flask-market.herokuapp.com
 
 ### Endpoints
+#### Get
 - /categories
 - /products
 
