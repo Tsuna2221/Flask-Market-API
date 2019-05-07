@@ -1,4 +1,5 @@
 React Shop back-end made with Flask-RESTful
+https://flask-market.herokuapp.com
 
 ### Endpoints
 - /categories
@@ -11,7 +12,7 @@ React Shop back-end made with Flask-RESTful
 | id       | Returns category specified by id              | string | "xjtFVYnD"    |
 | category | Returns category specified by a category name | string | "Video Games" |
 
-/categories?id=xjtFVYnD
+#### https://flask-market.herokuapp.com/categories?id=xjtFVYnD
 
 ~~~~{
 "data": {
@@ -89,7 +90,7 @@ React Shop back-end made with Flask-RESTful
 | offset   | Return products after specified length                      | number  | 20                |
 
 
-/products?category=video%20games&sub=nintendo%20switch&minprice=1500
+#### https://flask-market.herokuapp.com/products?category=video%20games&sub=nintendo%20switch&minprice=1500
 
 ~~~~
 {
