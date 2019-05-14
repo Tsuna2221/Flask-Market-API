@@ -23,31 +23,30 @@ class CustomerRouter:
         secret = request.args.get('secret')
 
         if q_id != None:
-            if token:
-                if secret:
-                    try:
-                        data = jwt.decode(token, secret)
-                        customer_data = customer.find_one({"customer_id": q_id})
+            try:
+                data = jwt.decode(token, secret)
+                
+                customer_data = customer.find_one({"customer_id": q_id})
 
-                        if customer_data:
-                            if customer_data['email'] == data['user']:
-                                output = {
-                                    "name": str(customer_data['first_name']) + " " + str(customer_data['last_name']),
-                                    "email": customer_data['email'],
-                                    "created_at": customer_data['created_at'],
-                                    "id": customer_data['customer_id'],
-                                }
-                            else:
-                                output = 'unauthorized'
-                        else:
-                            output = 'no customer found'
+                compiled_token = data['user'].lower()
+                compiled_payload = customer_data['email'].lower()
 
-                        return jsonify({"data": output})
-                    except:
-                        return jsonify({"data": 'something gone wrong'})
+                if customer_data:
+                    if compiled_payload == compiled_token:
+                        output = {
+                            "name": str(customer_data['first_name']) + " " + str(customer_data['last_name']),
+                            "email": customer_data['email'],
+                            "created_at": customer_data['created_at'],
+                            "id": customer_data['customer_id'],
+                        }
+                    else:
+                        output = 'unauthorized'
+                else:
+                    output = 'no customer found'
 
-                return jsonify({"data": 'no secret provided'})
-            return jsonify({"data": 'no token provided'})
+                return jsonify({"data": output})
+            except:
+                return jsonify({"data": 'something gone wrong'})
         return jsonify({'data': "no id provided"}) 
 
 
@@ -63,6 +62,7 @@ class CustomerRouter:
                 'last_name': request.json['last_name'],
                 'email': request.json['email'],
                 'password': hashed_pass,
+                'admin': False,
                 'created_at': datetime.datetime.now(),
                 'customer_id': ''.join(
                     random.SystemRandom().choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in
@@ -114,3 +114,29 @@ class CustomerRouter:
                 return jsonify({'data': 'Invalid Password'})
         else:
             return jsonify({'data': 'Email not found'})
+
+    @staticmethod
+    def get_all():
+        customers = mongo.db.customers
+        token = request.args.get('token')
+        secret = request.args.get('secret')
+        customers_data = customers.find()
+
+        try:
+            data = jwt.decode(token, secret)
+            current_user = customers.find_one({'email': re.compile('^' + data['user'] + '$', re.IGNORECASE)})
+            output = []
+
+            if current_user['admin'] == True:
+                for customer in customers_data:
+                    output.append({
+                        "name": str(customer['first_name']) + " " + str(customer['last_name']),
+                        "email": customer['email'],
+                        "created_at": customer['created_at'],
+                        "id": customer['customer_id'],
+                    })
+
+                return jsonify({"data": output})
+            return jsonify({"data": 'unauthorized. not an admin'})
+        except:
+            return jsonify({"data": 'invalid token or secret'})
