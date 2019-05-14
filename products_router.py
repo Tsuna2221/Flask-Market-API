@@ -16,7 +16,6 @@ mongo = PyMongo(app)
 class ProductsRouter:
     @staticmethod
     def get():
-        products = mongo.db.products
         q_limit = int(request.args.get('limit', 20))
         q_offset = int(request.args.get('offset', 0))
         valid_parameters = {}

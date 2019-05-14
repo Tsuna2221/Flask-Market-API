@@ -1,2 +1,6 @@
 mongod.bat
 keys.py
+steps.txt
+
+.vscode
+__pycache__
