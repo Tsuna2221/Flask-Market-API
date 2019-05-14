@@ -38,6 +38,7 @@ class CustomerRouter:
                             "email": customer_data['email'],
                             "created_at": customer_data['created_at'],
                             "id": customer_data['customer_id'],
+                            'is_admin': customer_data['admin']
                         }
                     else:
                         output = 'unauthorized'
@@ -134,6 +135,7 @@ class CustomerRouter:
                         "email": customer['email'],
                         "created_at": customer['created_at'],
                         "id": customer['customer_id'],
+                        'is_admin': customer['admin']
                     })
 
                 return jsonify({"data": output})

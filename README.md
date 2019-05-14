@@ -6,6 +6,8 @@ https://flask-market.herokuapp.com
 #### GET
 - /categories
 - /products
+- /customers
+- /customers/all
 
 #### Categories Params
 
@@ -136,281 +138,7 @@ https://flask-market.herokuapp.com
         "quantity": 100,
         "title": "Nintendo Switch – Neon Red and Neon Blue Joy-Con"
       },
-      {
-        "about": {
-          "description": "Gaming icons clash in the ultimate brawl you can play anytime, anywhere! Smash rivals off the stage as...",
-          "rating": 0,
-          "release_date": 1555263528359
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Sun, 14 Apr 2019 14:38:52 GMT",
-        "images": [
-          "https://res.cloudinary.com/db5msl9ld/image/upload/v1555263535/hx1vwl/oprbskwhfmpmzugt3fws.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "J3dgJB6F",
-        "price": 5999,
-        "price_percentage": 17,
-        "quantity": 100,
-        "title": "Super Smash Bros. Ultimate"
-      },
-      {
-        "about": {
-          "description": "Inspired by original Mario Party board game play...",
-          "rating": 0,
-          "release_date": 1555263927944
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Sun, 14 Apr 2019 14:45:30 GMT",
-        "images": [
-          "https://res.cloudinary.com/db5msl9ld/image/upload/v1555263933/lwekr7/opx29yb1uxfhsvt5qdxb.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "MuWlfweL",
-        "price": 5900,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Super Mario Party"
-      },
-      {
-        "about": {
-          "description": "Jump into a new Yoshi adventure in a world made of everyday objects—like boxes and paper cups! As Yoshi, you’ll leap up ...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:24:16 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/91N72kmLpbL._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "ykTipKap",
-        "price": 5799,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Yoshi's Crafted World - Nintendo Switch"
-      },
-      {
-        "about": {
-          "description": "Join Mario, Luigi, and Pals for single-player or multiplayer fun anytime, anywhere! take on two family-friendly...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:24:26 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/813JPZr%2BpCL._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "r3Gxlkg6",
-        "price": 5499,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "New Super Mario Bros. U Deluxe - Nintendo Switch"
-      },
-      {
-        "about": {
-          "description": "Dance to your own beat with Just Dance 2019, the ultimat...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Ubisoft",
-        "created_at": "Mon, 22 Apr 2019 19:24:35 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/81qZbC6FvzL._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "OiBsCzZQ",
-        "price": 1999,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Just Dance 2019 - Nintendo Switch Standard Edition"
-      },
-      {
-        "about": {
-          "description": "This pass includes the following downloadable content...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:24:43 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/81cZQGx9x-L._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "kLo0BI4H",
-        "price": 2499,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Super Smash Bros. Ultimate Fighter Pass DLC - Nintendo Switch [Digital Code]"
-      },
-      {
-        "about": {
-          "description": "Minecraft is bigger, better and more beautiful than ever! Build anything you can imagine in Creative mode...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:24:50 GMT",
-        "images": [
-          ""
-        ],
-        "num_of_shares": 0,
-        "pid": "cu2cRrR7",
-        "price": 2799,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Minecraft - Nintendo Switch"
-      },
-      {
-        "about": {
-          "description": "The critically acclaimed action-RPG Dragon's Dogma: Dark Arisen makes its way to Nintendo Switch...",
-          "rating": 0,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Capcom",
-        "created_at": "Mon, 22 Apr 2019 19:24:52 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/61ci3sFlLHL._AC_SL1004_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "biBqLWjx",
-        "price": 2999,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Dragon's Dogma: Dark Arisen - Nintendo Switch"
-      },
-      {
-        "about": {
-          "description": "Introducing your gateway into the most immersive, robust Nintendo Labo kit to date—this one combines DIY fun...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:24:59 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/71k8vM6RrdL._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "5Aqn1tjB",
-        "price": 3999,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Nintendo Labo Toy-Con 04: VR Kit - Starter Set + Blaster - Switch"
-      },
-      {
-        "about": {
-          "description": "Pokemon Let's Go Pikachu for Nintendo Switch Take your Pokémon journey to the Kanto region with your energetic partner...",
-          "rating": 4,
-          "release_date": "22-04-2019"
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Games"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Mon, 22 Apr 2019 19:25:05 GMT",
-        "images": [
-          "https://images-na.ssl-images-amazon.com/images/I/81eJlNQ1UCL._AC_SL1500_.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "3mmDpUFh",
-        "price": 4599,
-        "price_percentage": 0,
-        "quantity": 100,
-        "title": "Pokemon: Let's Go, Pikachu!"
-      },
-      {
-        "about": {
-          "description": "Take your game sessions up a notch with the Nintendo Switch Pro Controller. Includes motion controls, HD rumble, built-in amiibo functionality, and more. ",
-          "rating": 0,
-          "release_date": 1556440453080
-        },
-        "category": {
-          "category_name": "Video Games",
-          "sub_category": {
-            "name": "Nintendo Switch",
-            "type": "Accessories"
-          }
-        },
-        "company": "Nintendo",
-        "created_at": "Sun, 28 Apr 2019 05:34:15 GMT",
-        "images": [
-          "https://res.cloudinary.com/db5msl9ld/image/upload/v1556440458/747ixp/pmkntdfxhychsenli9hm.jpg"
-        ],
-        "num_of_shares": 0,
-        "pid": "zUhMSiSW",
-        "price": 6999,
-        "price_percentage": 19,
-        "quantity": 100,
-        "title": "Nintendo Switch Pro Controller"
-      }
+      {...}
     ],
     "query_next": "?limit=20&offset=11",
     "query_prev": "?limit=20&offset=0",
@@ -421,3 +149,77 @@ https://flask-market.herokuapp.com
 }
 ~~~~
 
+#### Customer Params
+
+You can get a token and secret by simply logging in at https://f-market.herokuapp.com/log
+User needs to be an admin. For that use the default user:
+
+~~~~
+email: test@user.com
+password: abcd1234
+~~~~
+
+| param    | description                                   | type   | example                                        |
+|----------|-----------------------------------------------|--------|------------------------------------------------|
+| id       | Your user ID                                  | string | "Lf2TCMC1Yw"                                   |
+| secret   | Your section secret key                       | string | "rZP0y2lg5A61NtC"                              |
+| token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
+
+#### https://flask-market.herokuapp.com/customer?id=Lf2TCMC1Yw&secret=<secret_key>&token=<token>
+
+~~~~
+{
+  "data": {
+    "created_at": "Tue, 14 May 2019 14:37:35 GMT",
+    "email": "test@user.com",
+    "id": "Lf2TCMC1Yw",
+    "is_admin": false,
+    "name": "Test User"
+  }
+}
+~~~~
+
+#### Customer/all Params
+
+| param    | description                                   | type   | example                                        |
+|----------|-----------------------------------------------|--------|------------------------------------------------|
+| secret   | Your section secret key                       | string | "rZP0y2lg5A61NtC"                              |
+| token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
+
+
+#### https://flask-market.herokuapp.com/customer/all?secret=<secret_key>&token=<token>
+
+~~~~
+{
+  "data": [
+    {
+      "created_at": "Sun, 12 May 2019 16:07:41 GMT",
+      "email": "Amelia341@gmail.com",
+      "id": "kkgIsRTCl4",
+      "is_admin": false,
+      "name": "Graves Rolando"
+    },
+    {
+      "created_at": "Sun, 12 May 2019 16:07:41 GMT",
+      "email": "Wilma001@gmail.com",
+      "id": "2qiqv5Lu5w",
+      "is_admin": false,
+      "name": "Newman Tricia"
+    },
+    {
+      "created_at": "Sun, 12 May 2019 16:07:42 GMT",
+      "email": "Hubert640@gmail.com",
+      "id": "5WXLsyxkrt",
+      "is_admin": false,
+      "name": "Dianna Norton"
+    },
+    {
+      "created_at": "Tue, 14 May 2019 14:37:35 GMT",
+      "email": "test@user.com",
+      "id": "Lf2TCMC1Yw",
+      "is_admin": true,
+      "name": "Test User"
+    }
+  ]
+}
+~~~~
