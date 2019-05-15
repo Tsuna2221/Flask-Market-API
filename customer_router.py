@@ -102,12 +102,15 @@ class CustomerRouter:
                 
                 token = jwt.encode({
                     'user': email,
+                    'id': customer_data['customer_id'],
                     'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=time)
                 }, key)
 
                 return jsonify({'data': {
                     "token": token.decode('UTF-8'),
                     "secret": key,
+                    'user': email,
+                    'id': customer_data['customer_id'],
                     "expire_in": time
                 }})
 

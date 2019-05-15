@@ -165,7 +165,7 @@ password: abcd1234
 | secret   | Your section secret key                       | string | "rZP0y2lg5A61NtC"                              |
 | token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
 
-#### https://flask-market.herokuapp.com/customer?id=Lf2TCMC1Yw&secret=<secret_key>&token=<token>
+#### https://flask-market.herokuapp.com/customer?id=Lf2TCMC1Yw&secret=secret_key&token=token
 
 ~~~~
 {
@@ -187,7 +187,7 @@ password: abcd1234
 | token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
 
 
-#### https://flask-market.herokuapp.com/customer/all?secret=<secret_key>&token=<token>
+#### https://flask-market.herokuapp.com/customer/all?secret=secret_key&token=token
 
 ~~~~
 {

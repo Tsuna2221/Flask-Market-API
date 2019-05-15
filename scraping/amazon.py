@@ -64,10 +64,11 @@ for url in text.readlines():
     #Input Category Info
     print(title + " - " + company())
     print('Insert Category: '); category = input()
-    if category != '!pass':
-        print('Insert Sub-Category: '); sub = input()
-        print('Insert Type Category: '); type_cat = input()
-
+    print('Insert Sub-Category: '); sub = input()
+    print('Insert Type Category: '); type_cat = input()
+    print('Accept? (!no or !yes)'); accept = input()
+    
+    if accept != '!no':
         obj = {
             'title': title,
             'company': company(),
