@@ -152,6 +152,7 @@ https://flask-market.herokuapp.com
 #### Customer Params
 
 You can get a token and secret by simply logging in at https://f-market.herokuapp.com/log
+
 User needs to be an admin. For that use the default user:
 
 ~~~~
