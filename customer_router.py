@@ -14,6 +14,9 @@ CORS(app)
 app.config["MONGO_URI"] = db
 mongo = PyMongo(app)
 
+# mZOj2cy8Jt0AxRM
+# eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoidHN1bmEyMjIxQGxpdmUuY29tIiwiZXhwIjoxNTU4MjE2Mzg2fQ.MLD2sKrLA0UvLhcbDn-A8e4Ms33C3ETMqUQnmsi1oMQ
+
 class CustomerRouter:
     @staticmethod
     def get():

@@ -4,13 +4,13 @@ from bson.objectid import ObjectId
 from flask_cors import CORS
 from keys import db
 from functools import wraps
+import datetime, random, string
 import jwt
 
 from products_router import ProductsRouter
 from categories_router import CategoriesRouter
 from customer_router import CustomerRouter
-
-import datetime, random, string
+from main_router import MainRouter
 
 app = Flask(__name__)
 CORS(app)
@@ -20,6 +20,7 @@ mongo = PyMongo(app)
 customer = CustomerRouter
 products = ProductsRouter
 categories = CategoriesRouter
+main = MainRouter
 
 #secret = rZP0y2lg5A61NtC
 #token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoidHN1bmEyMjIxQGxpdmUuY29tIiwiZXhwIjoxNTU3OTMyMDEyfQ.jEK3vz4YnMgTpkxvCUpN0YPr1wVnGaMr5P1YBQWouw8
@@ -45,6 +46,10 @@ def token_required(f):
         return jsonify({"data": 'no token provided'})
     return decorated
 
+
+@app.route('/', methods=['GET'])
+def get_main_data():
+    return main.get()
 
 @app.route('/products', methods=['GET'])
 def get_products():
