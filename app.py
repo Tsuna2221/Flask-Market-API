@@ -2,10 +2,15 @@ from flask import Flask, jsonify, request, make_response
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
-from keys import db
 from functools import wraps
 import datetime, random, string
 import jwt
+try:
+    from key import db
+    print('success')
+except:
+    from os import environ
+    db = environ.get('DB')
 
 from products_router import ProductsRouter
 from categories_router import CategoriesRouter
