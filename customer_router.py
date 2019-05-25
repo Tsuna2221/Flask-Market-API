@@ -2,8 +2,13 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
-from keys import db
 from register_validation import v_email, v_pass_match, v_pass
+try:
+    from key import db
+    print('success')
+except:
+    from os import environ
+    db = environ.get('DB')
 
 import jwt
 import re, random, datetime, string

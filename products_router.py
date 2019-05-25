@@ -2,10 +2,15 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from flask_cors import CORS
-from keys import db
 from setProductOutput import ProductOutput
 import datetime, random, string
 import pprint, re, math
+try:
+    from key import db
+    print('success')
+except:
+    from os import environ
+    db = environ.get('DB')
 
 app = Flask(__name__)
 CORS(app)

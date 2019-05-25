@@ -1,7 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, pymongo
-from keys import db
 from flask_cors import CORS
+try:
+    from key import db
+    print('success')
+except:
+    from os import environ
+    db = environ.get('DB')
 
 app = Flask(__name__)
 CORS(app)
