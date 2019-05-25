@@ -4,4 +4,3 @@ try:
 except:
     from os import environ
     db = environ.get('DB')
-    
