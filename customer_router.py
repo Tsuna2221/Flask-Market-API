@@ -4,8 +4,7 @@ from bson.objectid import ObjectId
 from flask_cors import CORS
 from register_validation import v_email, v_pass_match, v_pass
 try:
-    from key import db
-    print('success')
+    from keys import db
 except:
     from os import environ
     db = environ.get('DB')

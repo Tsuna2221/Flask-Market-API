@@ -5,8 +5,7 @@ from flask_cors import CORS
 import datetime, random, string
 import pprint, re, math
 try:
-    from key import db
-    print('success')
+    from keys import db
 except:
     from os import environ
     db = environ.get('DB')

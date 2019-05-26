@@ -6,8 +6,7 @@ from functools import wraps
 import datetime, random, string
 import jwt
 try:
-    from key import db
-    print('success')
+    from keys import db
 except:
     from os import environ
     db = environ.get('DB')
@@ -93,6 +92,7 @@ def post_customer():
 @app.route('/customer/login', methods=['POST'])
 def log_customer():
     return customer.log()
+
 
 # @app.route('/update', methods=['GET'])
 # def update_admin():

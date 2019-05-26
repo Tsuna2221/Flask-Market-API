@@ -6,8 +6,7 @@ from setProductOutput import ProductOutput
 import datetime, random, string
 import pprint, re, math
 try:
-    from key import db
-    print('success')
+    from keys import db
 except:
     from os import environ
     db = environ.get('DB')

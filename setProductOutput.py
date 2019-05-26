@@ -2,8 +2,7 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, pymongo
 from flask_cors import CORS
 try:
-    from key import db
-    print('success')
+    from keys import db
 except:
     from os import environ
     db = environ.get('DB')
