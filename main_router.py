@@ -10,6 +10,7 @@ except:
     from os import environ
     db = environ.get('DB')
 
+
 app = Flask(__name__)
 CORS(app)
 pp = pprint.PrettyPrinter(indent=4)
