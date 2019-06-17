@@ -32,8 +32,10 @@ class ProductOutput:
         q_limit = int(request.args.get('limit', 20))
         q_offset = int(request.args.get('offset', 0))
         starting_id = products.find(self.params).sort("_id", pymongo.ASCENDING)
+        
         count = starting_id.count()
         great_id = {"_id": {'$gte': last_id(starting_id)}}
+
         for product in starting_id:
             if product['company'] not in company_list:
                 company_list.append(product['company'])
@@ -58,7 +60,7 @@ class ProductOutput:
                 "num_of_shares": query['num_of_shares'],
                 "about": query['about'],
                 "category": query['category'],
-                "images": query['images']
+                "images": query['images'],
             })
 
         return {
