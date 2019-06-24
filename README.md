@@ -1,6 +1,6 @@
 React Shop back-end made with Flask-RESTful
 
-https://flask-market.herokuapp.com
+https://market-flask.herokuapp.com/
 
 ### Endpoints
 #### GET
@@ -16,7 +16,7 @@ https://flask-market.herokuapp.com
 | id       | Returns category specified by id              | string | "xjtFVYnD"    |
 | category | Returns category specified by a category name | string | "Video Games" |
 
-#### https://flask-market.herokuapp.com/categories?id=xjtFVYnD
+#### https://market-flask.herokuapp.com/categories?id=xjtFVYnD
 
 ~~~~{
 "data": {
@@ -94,7 +94,7 @@ https://flask-market.herokuapp.com
 | offset   | Return products after specified length                      | number  | 20                |
 
 
-#### https://flask-market.herokuapp.com/products?category=video%20games&sub=nintendo%20switch&minprice=1500
+#### https://market-flask.herokuapp.com/products?category=video%20games&sub=nintendo%20switch&minprice=1500
 
 ~~~~
 {
@@ -151,7 +151,7 @@ https://flask-market.herokuapp.com
 
 #### Customer Params
 
-You can get a token and secret by simply logging in at https://f-market.herokuapp.com/log
+You can get a token and secret by simply logging in at https://market-react.herokuapp.com/log
 
 User needs to be an admin. For that use the default user:
 
@@ -166,7 +166,7 @@ password: abcd1234
 | secret   | Your section secret key                       | string | "rZP0y2lg5A61NtC"                              |
 | token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
 
-#### https://flask-market.herokuapp.com/customer?id=Lf2TCMC1Yw&secret=secret_key&token=token
+#### https://market-flask.herokuapp.com/customer?id=Lf2TCMC1Yw&secret=secret_key&token=token
 
 ~~~~
 {
@@ -188,7 +188,7 @@ password: abcd1234
 | token    | Your section token                            | string | "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1..." |
 
 
-#### https://flask-market.herokuapp.com/customer/all?secret=secret_key&token=token
+#### https://market-flask.herokuapp.com/customer/all?secret=secret_key&token=token
 
 ~~~~
 {
