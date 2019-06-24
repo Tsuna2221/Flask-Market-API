@@ -2,6 +2,8 @@ React Shop back-end made with Flask-RESTful
 
 https://market-flask.herokuapp.com/
 
+GraphQL Server at: https://market-ql.herokuapp.com/gql
+
 ### Endpoints
 #### GET
 - /categories
