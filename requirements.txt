@@ -13,4 +13,4 @@ tzlocal==1.5.1
 virtualenv==16.4.3
 virtualenv-clone==0.5.3
 PyJWT==1.7.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
